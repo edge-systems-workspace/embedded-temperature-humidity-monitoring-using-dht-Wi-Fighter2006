@@ -17,13 +17,24 @@ DHT dht(DHT_PIN, DHT_TYPE);
 void setup() {
 
     Serial.begin(9600);
-
-    // STEP 3: Initialize DHT sensor
     dht.begin();
 
-    // STEP 3: Print initialization message
     Serial.println("=== DHT11 Temperature & Humidity Monitor Initialized ===");
 }
 
 void loop() {
+
+    // STEP 4: Read humidity
+    float humidity = dht.readHumidity();
+
+    // STEP 4: Read temperature (Celsius)
+    float temperature = dht.readTemperature();
+
+    Serial.print("Humidity: ");
+    Serial.print(humidity);
+    Serial.print(" % | Temperature: ");
+    Serial.print(temperature);
+    Serial.println(" °C");
+
+    delay(2000);
 }
