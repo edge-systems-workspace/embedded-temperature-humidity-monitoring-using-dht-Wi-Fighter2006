@@ -5,6 +5,11 @@
  * @brief Embedded Temperature and Humidity Monitoring using DHT11
  * @author Piyush Choudhary
  * @date 2026-02-20
+ *
+ * @details
+ * Reads environmental data from a DHT11 sensor
+ * and prints validated temperature and humidity values
+ * to the Serial Monitor every 2 seconds.
  */
 
 #include <DHT.h>
@@ -24,17 +29,24 @@ void setup() {
 
 void loop() {
 
-    // STEP 4: Read humidity
+    // Read humidity and temperature
     float humidity = dht.readHumidity();
-
-    // STEP 4: Read temperature (Celsius)
     float temperature = dht.readTemperature();
 
+    // STEP 5: Check if reading failed
+    if (isnan(humidity) || isnan(temperature)) {
+        Serial.println("Error: Failed to read from DHT11 sensor!");
+        delay(2000);
+        return;
+    }
+
+    // Print formatted output
     Serial.print("Humidity: ");
     Serial.print(humidity);
-    Serial.print(" % | Temperature: ");
+    Serial.print(" %  |  Temperature: ");
     Serial.print(temperature);
     Serial.println(" °C");
 
+    // 2-second delay before next reading
     delay(2000);
 }
