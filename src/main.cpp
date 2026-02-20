@@ -12,13 +12,17 @@
 #define DHT_PIN 2
 #define DHT_TYPE DHT11
 
-// STEP 2: Create DHT object
 DHT dht(DHT_PIN, DHT_TYPE);
 
 void setup() {
 
-    // Initialize Serial communication
     Serial.begin(9600);
+
+    // STEP 3: Initialize DHT sensor
+    dht.begin();
+
+    // STEP 3: Print initialization message
+    Serial.println("=== DHT11 Temperature & Humidity Monitor Initialized ===");
 }
 
 void loop() {
